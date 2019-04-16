@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+<head>
+  <meta charset="utf-8">
+  <title>Badr Hashmi</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+  integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+  <!-- Alternative to Bootstrap 3 Glyphicons -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'simplesocial/css/master.css'%}">
+
+</head>
+{% block content %}
+<h1> Welcome to Machine Learning Api</h1>
+<!-- <a href="{% url 'home' %}" <button type="button" name="class="btn btn-simple">Import Data File</button></a> -->
+<!-- <a href="{% url 'MachineLearningApi:importDatafile' %}" class="btn btn-info" role="button">Import Data</a> -->
+
+<form action="{% url "MachineLearningApi:upload_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+{% csrf_token %}
+<div class="form-group">
+    <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+    <div class="col-md-8">
+        <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+         <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+    </div>
+</div>
+</form>
+{% endblock %}

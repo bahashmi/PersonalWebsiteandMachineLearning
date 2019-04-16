@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<head>
+<link rel="stylesheet" href="{% static 'simplesocial/css/master.css'%}">
+</head>
+
+
+
+<h1>Welcome to Home Page!</h1>
+<div class="container">
+<h1>Profile</h1>
+<p> <img src="{% static "simplesocial/imgs/csu-ram-greengold.png" %}" width="100" height="100" align="left"> I am currently working as a Quality Assurance Engineer at Techlogix. I
+completed my bachelor of Science in Computer Science with minor in Mathematics
+from Colorado State University (2014-2018).
+<br></br>
+<p>Since joining in November 2018, I have worked on several different projects
+including carrying out functional & non functional testing and developing
+automated test scripts of Health Managment Information System. I also
+carried out load testing activities of Allied Bank's new  "myAbl" application. </p>
+
+</div>
+
+
+<div class="footer">
+
+  				© 2018 Badr.
+  	
+</div>
+
+
+{% endblock %}
