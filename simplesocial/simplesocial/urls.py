@@ -27,4 +27,6 @@ urlpatterns = [
     path('posts/', include("posts.urls", namespace="posts")),
     path('groups/',include("groups.urls", namespace="groups")),
     path('MachineLearningApi/',include("MachineLearningApi.urls", namespace="MachineLearningApi")),
+    path('MachineLearningApi/preprocess/', views.PreprocessPage.as_view(), name="preprocess"),
+    
 ]
