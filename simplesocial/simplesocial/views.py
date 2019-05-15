@@ -5,6 +5,9 @@ from django.views.generic import TemplateView
 class TestPage(TemplateView):
     template_name = 'test.html'
 
+class PreprocessPage(TemplateView):
+    template_name = 'preprocess.html'
+
 class ThanksPage(TemplateView):
     template_name = 'thanks.html'
 

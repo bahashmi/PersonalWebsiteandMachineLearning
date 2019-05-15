@@ -5,7 +5,11 @@ import pandas as pd
 
 # Create your models here.
 
-# # Create your tests here.
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to='media/downloaded')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
 class CSVFile(models.Model):
     name= models.CharField(max_length=100)
     Appliances = models.IntegerField(default=0)
