@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'groups.apps.GroupsConfig',
     'posts.apps.PostsConfig',
     'MachineLearningApi.apps.MachinelearningapiConfig'
+    
 ]
 
 MIDDLEWARE = [
