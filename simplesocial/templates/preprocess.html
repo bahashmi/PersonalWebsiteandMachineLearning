@@ -1,7 +1,40 @@
 {% extends "base.html" %}
+
 {% load static %}
 
 {% block content %}
-<h1> Congratulations! You have sucessfully uploaded a file</h1>
-<h2> Lets Preprocess the Data</h2>
+<h1> Congratulations! You have successfully uploaded a file</h1>
+<h2> Lets Look at  the Data</h2>
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <!-- <tr>
+                {{loaded_data | safe}}
+        </tr> -->
+
+    </thead>
+    <tbody>
+            <tr>
+                    {{loaded_data | safe}}
+                    Numerical Data
+                    {{filedatahtml | safe}}
+                    Partitioned Data
+                     Xtrain {{Xtrain | safe}}
+                     Ttrain {{Ttrain | safe}}
+                     Xtest {{Xtest| safe}}
+                     Ttest {{Ttest | safe}}
+            </tr>
+        <!-- {{test}}
+        {% for ad in test %} -->
+        <tr>
+
+            <!-- <td>test data {{ ad.Appliances }}</td>
+            <td>{{ ad.lights}}</td>
+            <td>{{ ad.T1}}</td>
+            <td>{{ ad.RH_1}}</td> -->
+
+        </tr>
+    <!-- {% endfor %} -->
+    </tbody>
+</table>
 {% endblock %}
