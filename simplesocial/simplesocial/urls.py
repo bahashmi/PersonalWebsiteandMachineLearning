@@ -28,5 +28,7 @@ urlpatterns = [
     path('groups/',include("groups.urls", namespace="groups")),
     path('MachineLearningApi/',include("MachineLearningApi.urls", namespace="MachineLearningApi")),
     path('MachineLearningApi/preprocess/', views.PreprocessPage.as_view(), name="preprocess"),
+    path('MachineLearningApi/preprocess/partitiondata/',views.partitiondata.as_view(),name='partitiondata'),
+    path('MachineLearningApi/preprocess/partitiondata/CreateModel/',views.CreateModel.as_view(),name='CreateModel'),
     
 ]

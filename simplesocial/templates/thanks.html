@@ -37,6 +37,12 @@
     </div>
     </form>
 
+    <form action="/team_name_url/" method="post">
+        <label for="team_name">Enter name: </label>
+        <input id="team_name" type="text" name="name_field" value="Default name for team.">
+        <input type="submit" value="OK">
+    </form>
+
     <form action="{% url 'MachineLearningApi:preprocess' %}">
         <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Preprocess</button>
         </form>

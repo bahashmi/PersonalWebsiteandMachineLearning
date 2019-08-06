@@ -23,17 +23,21 @@
                      Ttrain {{Ttrain | safe}}
                      Xtest {{Xtest| safe}}
                      Ttest {{Ttest | safe}}
+                     figure {{ figure | safe}}
+                     
+                    <form action="{% url 'MachineLearningApi:partitiondata' %}">
+                        <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> partitiondata</button>
+                        </form>
+                     
+                      {{Xtrain1 | safe}}
+                      {{Ttrain1 | safe}}
+                      {{Xtest1| safe}}
+                      {{Ttest1 | safe}}
+                     
             </tr>
         <!-- {{test}}
         {% for ad in test %} -->
-        <tr>
-
-            <!-- <td>test data {{ ad.Appliances }}</td>
-            <td>{{ ad.lights}}</td>
-            <td>{{ ad.T1}}</td>
-            <td>{{ ad.RH_1}}</td> -->
-
-        </tr>
+        
     <!-- {% endfor %} -->
     </tbody>
 </table>
