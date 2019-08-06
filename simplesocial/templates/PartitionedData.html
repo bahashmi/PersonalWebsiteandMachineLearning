@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1> Congratulations! It is time to partition the data</h1>
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <!-- <tr>
+                {{loaded_data | safe}}
+        </tr> -->
+
+    </thead>
+    <tbody>
+            <tr>
+                     
+                      {{Xtrain1 | safe}}
+                      {{Ttrain1 | safe}}
+                      {{Xtest1| safe}}
+                      {{Ttest1 | safe}}
+                     <!-- model {{model | safe}} -->
+                     <form action="{% url 'MachineLearningApi:CreateModel' %}">
+                            <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> CreateModel</button>
+                            </form>
+                            
+                     
+            </tr>
+        <!-- {{test}}
+        {% for ad in test %} -->
+        
+    <!-- {% endfor %} -->
+    </tbody>
+</table>
+{% endblock %}

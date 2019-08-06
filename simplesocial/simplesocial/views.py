@@ -8,6 +8,12 @@ class TestPage(TemplateView):
 class PreprocessPage(TemplateView):
     template_name = 'preprocess.html'
 
+class partitiondata(TemplateView):
+    template_name = 'PartitionedData.html'
+
+class CreateModel(TemplateView):
+    template_name = 'CreateModel.html'
+
 class ThanksPage(TemplateView):
     template_name = 'thanks.html'
 

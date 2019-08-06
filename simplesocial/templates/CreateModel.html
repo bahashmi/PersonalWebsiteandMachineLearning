@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<head>
+</head>
+<h1> Lets create our first model</h1>
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <!-- <tr>
+                {{loaded_data | safe}}
+        </tr> -->
+
+    </thead>
+    <tbody>
+            <tr>
+                     <table>
+                            <tr>
+                              {% for key in model.keys %}
+                                  <th>{{key}}</th>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              {% for value in model.values %}
+                                  <td>
+                                   {% for v in value %}
+                                     {{v}}
+                                   {% endfor %}
+                                 </td>
+                              {% endfor %}
+                            </tr>
+                          </table>
+                          Predicted model {{predictedmodel | safe}} 
+                          Error {{error}}
+                          {{html | safe}}
+                         
+                            
+                     
+            </tr>
+        <!-- {{test}}
+        {% for ad in test %} -->
+        
+    <!-- {% endfor %} -->
+    </tbody>
+</table>
+{% endblock %}
