@@ -1,9 +1,23 @@
 from django import forms
-from django import forms
+# from .models import Post
+from django.conf import settings
+from django.db import models
+from django.utils import timezone
 
+from django import forms
+from django.forms import ModelForm
+from .models import UserDetails
+
+
+class UserModelForm(ModelForm):
+    class Meta:
+        model = UserDetails
+        fields = ['targetcols', 'inputcols']
 
 class EventsForm(forms.Form):
     docfile = forms.FileField(
         label="Select a File",
         help_text="Max. 42 megabytes"
     )
+
+

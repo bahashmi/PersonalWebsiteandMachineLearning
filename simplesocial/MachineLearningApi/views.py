@@ -18,10 +18,49 @@ from bokeh.plotting import figure,output_file,show
 from bokeh.embed import components,file_html
 from bokeh.resources import CDN
 from collections import Iterable
+from django.contrib import messages
+
 
 # from pylab import *
 # import PIL, PIL.Image, StringIO
 # Create your views here.
+
+# def get_name(request):
+#     if request.method == "POST":
+#         form = PostForm(request.POST)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.author = request.user
+#             post.published_date = timezone.now()
+#             post.save()
+#             return redirect('thanks.html')
+#     else:
+#         form = PostForm()
+#     return render(request, 'thanks.html', {'form': form})
+
+
+from .forms import UserModelForm
+
+def userDetails(request):
+
+    if request.method == 'POST':
+        form = UserModelForm(request.POST)
+        if form.is_valid():
+
+            u = form.save()
+            users = UserDetails.objects.all()
+
+            return render(request, 'display.html', {'users': users})
+
+            
+
+    else:
+        form_class = UserModelForm
+
+    return render(request, 'display.html', {
+        'form': form_class,
+    })
+
 
 def flatten(lis):
 	returnlist = []
@@ -226,6 +265,7 @@ def upload_csv(request):
 			b = CSVFile(name='Beatles Blog')
 			b.save()
 	#return HttpResponseRedirect(reverse("MachineLearningApi:upload_csv"))
+	messages.success(request, 'Your file was uploaded successfully!')
 	return render(request, 'thanks.html')
 
 

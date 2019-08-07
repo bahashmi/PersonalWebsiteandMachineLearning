@@ -25,6 +25,7 @@
                      Ttest {{Ttest | safe}}
                      figure {{ figure | safe}}
                      
+
                     <form action="{% url 'MachineLearningApi:partitiondata' %}">
                         <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> partitiondata</button>
                         </form>
@@ -39,6 +40,10 @@
         {% for ad in test %} -->
         
     <!-- {% endfor %} -->
+
+    <form action="{% url 'MachineLearningApi:display' %}">
+        <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> display</button>
+        </form>
     </tbody>
 </table>
 {% endblock %}
