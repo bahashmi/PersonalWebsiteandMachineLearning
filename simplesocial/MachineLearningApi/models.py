@@ -1,9 +1,18 @@
 from django.db import models
 import pandas as pd
 
+from django.db import models
+class UserDetails(models.Model):
+
+    targetcols = models.CharField(max_length=100)
+    gender = models.CharField(max_length=255)
+    inputcols = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.title
 
 
-# Create your models here.
+
 
 class Document(models.Model):
     description = models.CharField(max_length=255, blank=True)

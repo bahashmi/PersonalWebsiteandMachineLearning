@@ -17,6 +17,9 @@ class CreateModel(TemplateView):
 class ThanksPage(TemplateView):
     template_name = 'thanks.html'
 
+class display(TemplateView):
+    template_name = 'display.html'
+
 class HomePage(TemplateView):
     template_name = 'index.html'
 
