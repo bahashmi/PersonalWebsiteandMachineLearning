@@ -22,8 +22,36 @@
 
 </head>
 {% block content %}
-<h1> Welcome to Machine Learning Api</h1>
 
+<h1> Welcome to Machine Learning Api</h1>
+<p> I will walk you through a machine learning exercise based on Linear Regression. We will be analzying energy data and try to predict the light usage  compared to other input values </p>
+<body>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Important Note
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:lightblue">
+          <h5 class="modal-title" id="exampleModalLabel">Note</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="background-color:lightblue">
+          If you would not like to load any data and rather use the default data, you can proceed to the next step by clicking Preprocess
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+    
+    </body>
 <form action="{% url "MachineLearningApi:upload_csv" %}" method="POST" enctype="multipart/form-data" class="form-horizontal">
     {% csrf_token %}
     <div class="form-group">

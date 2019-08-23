@@ -19,6 +19,7 @@ from bokeh.embed import components,file_html
 from bokeh.resources import CDN
 from collections import Iterable
 from django.contrib import messages
+from IPython.display import HTML
 
 
 # from pylab import *
@@ -139,7 +140,22 @@ def partitiondata(request):
 	dfTtest = pd.DataFrame(Ttest)
 	model = train(inputvalues,targetvalues)
 	print("model ",model)
-	return render(request, 'PartitionedData.html', {'Xtrain1':dfXtrain.to_html,'Ttrain1':dfTtrain.to_html,'Xtest1':dfXtest.to_html,'Ttest1':dfTtest.to_html,'model':model})
+
+	dfcolumnvalues = pd.read_csv('media/4cols.csv')
+	print('dfcolumnvalues[[lights]] ',dfcolumnvalues[['lights']])
+	filedf = dfcolumnvalues[['lights']].to_html
+	
+	
+	x= [1,2,2,4,5]
+	y= [1,2,3.5,4,5]
+	
+
+	plot = figure(title = 'Line Graph',x_axis_label='X-Axis',y_axis_label= 'Y-Axis',plot_width=400,plot_height=400 )
+	plot.circle(x,y)
+	# show(plot)
+	html = file_html(plot, CDN, "my plot")
+
+	return render(request, 'PartitionedData.html', {'Xtrain1':dfXtrain.to_html,'filedf':filedf ,'Ttrain1':dfTtrain.to_html,'Xtest1':dfXtest.to_html,'Ttest1':dfTtest.to_html,'model':model,'figure':html})
 
 def CreateModel(request):
 	dfcolumnvalues = pd.read_csv('media/4cols.csv')
@@ -153,6 +169,9 @@ def CreateModel(request):
 	error = rmse(dfpredicted,targetvalues)
 	print("error ", error )
 
+
+	
+
 	x= [1,2,2,4,5]
 	y= [1,2,3.5,4,5]
 	
@@ -163,7 +182,7 @@ def CreateModel(request):
 	html = file_html(plot, CDN, "my plot")
 
 	
-	return render(request, 'CreateModel.html', {'model':model,'predictedmodel':dfpredicted.to_html,'error':error,'html':html})
+	return render(request, 'CreateModel.html', {'model':model, 'predictedmodel':dfpredicted.to_html,'error':error,'html':html})
 
 def PreprocessPage(request):
 	data = pd.read_csv('media/4cols.csv')
