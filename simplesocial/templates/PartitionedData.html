@@ -15,11 +15,14 @@
     </thead>
     <tbody>
             <tr>
-                     
-                      {{Xtrain1 | safe}}
-                      {{Ttrain1 | safe}}
-                      {{Xtest1| safe}}
-                      {{Ttest1 | safe}}
+                    lights data
+                    {{filedf | safe}}
+                    Partitioned Data
+                    Xtrain {{Xtrain1 | safe}}
+                    Ttrain {{Ttrain1 | safe}}
+                    Xtest {{Xtest1 | safe}}
+                    Ttest {{Ttest1 | safe}}
+                      figure {{ figure | safe}}
                      <!-- model {{model | safe}} -->
                      <form action="{% url 'MachineLearningApi:CreateModel' %}">
                             <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> CreateModel</button>
