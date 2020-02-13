@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<h1> Congratulations! It is time to partition the data</h1>
+<!-- <h1> Congratulations! Let's look at step number 2 in the machine learning process</h1> -->
 
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -15,15 +15,32 @@
     </thead>
     <tbody>
             <tr>
-                    lights data
-                    {{filedf | safe}}
-                    Partitioned Data
-                    Xtrain {{Xtrain1 | safe}}
-                    Ttrain {{Ttrain1 | safe}}
-                    Xtest {{Xtest1 | safe}}
-                    Ttest {{Ttest1 | safe}}
-                      figure {{ figure | safe}}
+                    <!-- lights data
+                    {{filedf | safe}} -->
+                    <h2 style="color:rgb(25, 28, 236);font-family:verdana;"> <b>Partition Data </b>  </h2>
+                    
+                    <p>After reading in the data from a csv file, we have to partition the data set into training and testing datasets. Generally, 80/20 rule is followed when partitioning the data. 80% of the data is considered as training data, while the rest is used for testing the model.  X is the input data, while T contains the target valuesSome of the functions used in the partitioning the data are  Train, Model, RMSE, TrainSGD.For more information about the functions, please visit my github profile. We partition the data in order to calculate the weights assigned to the data set which will help to make good predictions.</p>
+                    &nbsp;
+                    <h5 style="color:rgb(25, 116, 236);font-family:verdana;"> <b>Xtrain </b>  </h5>
+                    
+                     {{Xtrain1 | safe}}
+                    <!-- figure {{ figure | safe}} -->
+                    &nbsp;
+                    <h5 style="color:rgb(25, 116, 236);font-family:verdana;"> <b>Ttrain </b>  </h5>
+                    {{Ttrain1 | safe}}
+                    <!-- figure {{ figure | safe}} -->
+                    &nbsp;
+                    <h5 style="color:rgb(25, 116, 236);font-family:verdana;"> <b>Xtest </b>  </h5>
+                     {{Xtest1 | safe}}
+                    <!-- figure {{ figure | safe}} -->
+                    &nbsp;
+                    <h5 style="color:rgb(25, 116, 236);font-family:verdana;"> <b>Ttest </b>  </h5>
+                     {{Ttest1 | safe}}
+                     &nbsp;
+                    <h5 style="color:rgb(25, 116, 236);font-family:verdana;"> <b>Xtrain Graph </b>  </h5>
+                       {{ figure | safe}}
                      <!-- model {{model | safe}} -->
+                     &nbsp;
                      <form action="{% url 'MachineLearningApi:CreateModel' %}">
                             <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> CreateModel</button>
                             </form>

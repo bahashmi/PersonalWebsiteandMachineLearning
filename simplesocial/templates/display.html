@@ -22,16 +22,29 @@
 {% block content %}
 <h1> Welcome to Machine Learning Api</h1>
 
-    <form action="{% url 'MachineLearningApi:preprocess' %}" method="post">
-        {% csrf_token %}
-        <table>
-        {{form.as_table}}
-    
-     </table>
-    <input type="submit" value="Submit" />
+    <form action="{% url 'MachineLearningApi:preprocess' %}" method="POST" class="post-form">
+       {% csrf_token %}
+       <table>
+        {% for item in users %}
+        <tr>
+            <td><b>Title:</b>{{ item.targetcols }}</td>
+            <td><b>Gender:</b> {{ item.inputcols |default:"NA" }}</td>
+            
+        </tr>
+        <tr>
+        <td colspan="2" class="divider"><hr/></td>
+    </tr>
+        {% endfor %}
+    </table>
+     <!-- <button type="submit" class="save btn btn-default">Save</button>  -->
+     <form action="{% url 'MachineLearningApi:preprocess' %}"  >
+        <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> User Details</button>
+        </form>
     </form>
 
-    <form action="{% url 'MachineLearningApi:preprocess' %}">
+    
+
+    <!-- <form action="{% url 'MachineLearningApi:preprocess' %}">
         <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Preprocess</button>
-        </form>
+        </form> -->
 {% endblock %}

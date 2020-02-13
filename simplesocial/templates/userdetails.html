@@ -9,9 +9,9 @@
     <title>Django Forms Tutorial</title>
 </head>
 <body>
-<h2>Django Forms Tutorial</h2>
+<h2>Django Forms Tutorial - User details </h2>
 
-<form action="{% url 'thanks' %}" method="post">
+<form action="{% url 'MachineLearningApi:display' %}" method="post">
     {% csrf_token %}
     <table>
     {{form.as_table}}
@@ -19,5 +19,7 @@
  </table>
 <input type="submit" value="Submit" />
 </form>
+
+
 </body>
 {% endblock %}

@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import View
-from MachineLearningApi.models import CSVFile
+from MachineLearningApi.models import CSVFile,UserDetails
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import EventsForm
+from .forms import EventsForm,UserModelForm
 from django.core.files.storage import FileSystemStorage
 from django.views.generic import TemplateView
 import pandas as pd
@@ -11,56 +11,46 @@ import numpy as np
 from matplotlib import pylab
 import matplotlib.pyplot as plt
 import mpld3 as mpld3
-import jinja2 as jinja2
-import json
-import codecs
 from bokeh.plotting import figure,output_file,show
 from bokeh.embed import components,file_html
 from bokeh.resources import CDN
 from collections import Iterable
 from django.contrib import messages
 from IPython.display import HTML
+import os
+ 
 
-
-# from pylab import *
-# import PIL, PIL.Image, StringIO
-# Create your views here.
-
-# def get_name(request):
-#     if request.method == "POST":
-#         form = PostForm(request.POST)
-#         if form.is_valid():
-#             post = form.save(commit=False)
-#             post.author = request.user
-#             post.published_date = timezone.now()
-#             post.save()
-#             return redirect('thanks.html')
-#     else:
-#         form = PostForm()
-#     return render(request, 'thanks.html', {'form': form})
 
 
 from .forms import UserModelForm
+from .forms import NameForm
 
 def userDetails(request):
+	if request.method == 'POST':
+		form = UserModelForm(request.POST)
+		if form.is_valid():
+			u = form.save()
+			users = UserDetails.objects.all()
+			print("Users: ", users.values)
+			return render(request, 'display.html',{'users': users})
 
-    if request.method == 'POST':
-        form = UserModelForm(request.POST)
-        if form.is_valid():
-
-            u = form.save()
-            users = UserDetails.objects.all()
-
-            return render(request, 'display.html', {'users': users})
-
-            
-
-    else:
-        form_class = UserModelForm
-
-    return render(request, 'display.html', {
+            # u = form.save(commit=False)
+            # u.title = "New Name"
+            # context = {
+            # 'u' : u
+            # }
+            #
+            # template = loader.get_template('display.html')
+            #
+            # return HttpResponse(template.render(context, request))
+	else:
+		form_class = UserModelForm
+	
+	return render(request, 'userdetails.html', {
         'form': form_class,
     })
+
+
 
 
 def flatten(lis):
@@ -126,7 +116,28 @@ def partition(Xparam,Tparam,nfraction,shuffle):
 	return Xtrain,Ttrain, Xtest, Ttest
 
 def partitiondata(request):
-	dfcolumnvalues = pd.read_csv('media/4cols.csv')
+	path="media/"  
+	img_list =os.listdir(path)
+	print("list of files inside 15jan ",img_list)
+
+	nfry= CSVFile.objects.all()
+	print("nfry[len(nfry)-1].name, ", nfry[len(nfry)-1].name)
+
+	# targetCol = ''
+	# form = UserModelForm(request.POST)
+	# if form.is_valid():
+	# 	targetCol = form.cleaned_data.get("targetcols")
+
+	# print("targetCol = ", form.cleaned_data)
+
+
+
+	Userdetailsobjects = UserDetails.objects.all()
+	print("Userdetailsobjects: ", len(Userdetailsobjects))
+
+	filepath = "\"" + path + nfry[len(nfry)-1].name + "\""
+	print("filepath = ", filepath)
+	dfcolumnvalues = pd.read_csv("media/4cols.csv")
 	targetvalues = dfcolumnvalues[['lights']].values
 	inputvalues = dfcolumnvalues[['Appliances','T1','RH_1']].values
 	Xtrain,Ttrain, Xtest, Ttest = partition(inputvalues,targetvalues,0.8,True)
@@ -146,8 +157,8 @@ def partitiondata(request):
 	filedf = dfcolumnvalues[['lights']].to_html
 	
 	
-	x= [1,2,2,4,5]
-	y= [1,2,3.5,4,5]
+	x= [1,2,3,4,5,6,7,8,9]
+	y= [60.0,19.89,46.693333,50.0,19.89,46.30000060,60.0,19.89,46.693333]
 	
 
 	plot = figure(title = 'Line Graph',x_axis_label='X-Axis',y_axis_label= 'Y-Axis',plot_width=400,plot_height=400 )
@@ -227,7 +238,7 @@ def PreprocessPage(request):
 	flatlist =flatten(targetvalues.flatten())
 	print("flatlist str[0] ",flatlist)
 	plot = figure(title = 'Line Graph',x_axis_label='X-Axis',y_axis_label= 'Y-Axis',plot_width=400,plot_height=400)
-	plot.circle([1,2,3],flatlist)
+	plot.circle([1,2,3,4],flatlist)
 	# show(plot)
 	html = file_html(plot, CDN, "my plot")
 
@@ -251,7 +262,23 @@ def upload_csv(request):
 	csv_file = request.FILES["csv_file"]
 	fs = FileSystemStorage(location='media')
 	filename = fs.save(csv_file.name,csv_file)
-	print("uploaded file in upload_csv ",csv_file.name)
+	# p = CSVFile(name=csv_file.name)
+	# p.save()
+	# print("p.name ",p.name)
+	# print("uploaded file in upload_csv update jan 14",csv_file.name)
+
+	# print("CSVfile objects = ",CSVFile.objects.values_list('name', flat=True))
+
+
+	fruit = CSVFile.objects.create(name=filename)
+	fruit.save()
+	print(fruit.name)
+	
+	print("CSVFile.objects name ", CSVFile.objects.filter(name__startswith=filename).values('name'))
+
+	# nfry= CSVFile.objects.filter(name__startswith=filename).values('name')
+	# nfry= CSVFile.objects.filter(name__startswith=filename)[0].name
+	# print(nfry)
 
 	if not csv_file.name.endswith('.csv'):
 		messages.error(request,'File is not CSV type')
@@ -291,6 +318,7 @@ def upload_csv(request):
 def upload(request):
 	if request.method == 'POST':
 		uploaded_file = request.FILES['myfile']
+		name = request.FILES['myfile'].name
 		print( " the uploaded file ",uploaded_file.name)
 	return render(request,"thanks.html")
 
@@ -318,3 +346,6 @@ class DataImportFile(View):
         all_entries1 = CSVFile.objects.all()
         print("all enteries ",enteries)
         return HttpResponseRedirect(reverse("MachineLearningApi:PreprocessData"))
+
+
+		

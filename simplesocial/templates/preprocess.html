@@ -3,8 +3,8 @@
 {% load static %}
 
 {% block content %}
-<h1> Congratulations! You have successfully uploaded a file</h1>
-<h2> Lets Look at  the Data</h2>
+<h2 style="color:rgb(87, 6, 30);font-family:verdana;"> <b>Let's Look at the Uploaded Data </b>  </h2>
+
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="100">
     <thead>
@@ -14,16 +14,23 @@
 
     </thead>
     <tbody>
-            <tr>
+            <tr> <p>This data was collected by Luis Candanedo, at  University of Mons (UMONS). It is experimental data used to create regression models of appliances energy use in a low energy building.The  original number of samples in the data are 19735 and number of attributes are 29.The target is whatever the output of the input variables.We will chose the second attribute as our target values(lights).Features are individual independent variables that act as the input in your system. Prediction models use features to make predictions. The  other attributes displayed below will form the input data.</p>
                     {{loaded_data | safe}}
-                    Numerical Data
+                    &nbsp;
+                    <p>I had previously mentioned that the lights data will be used as a target values for this exercise.</p>
+                    &nbsp;
+                    <h2 style="color:rgb(25, 28, 236);font-family:verdana;"> <b>Lights Data </b>  </h2>
+                    &nbsp;
                     {{filedatahtml | safe}}
-                    Partitioned Data
-                     Xtrain {{Xtrain | safe}}
+                    &nbsp;
+                    <h2 style="color:rgb(25, 28, 236);font-family:verdana;"> <b>Lights Data Graph </b>  </h2>
+                    &nbsp;
+                     <!-- Xtrain {{Xtrain | safe}}
                      Ttrain {{Ttrain | safe}}
                      Xtest {{Xtest| safe}}
-                     Ttest {{Ttest | safe}}
-                     figure {{ figure | safe}}
+                     Ttest {{Ttest | safe}} -->
+                     {{ figure | safe}} 
+                     &nbsp;
                      
 
                     <form action="{% url 'MachineLearningApi:partitiondata' %}">
@@ -36,14 +43,18 @@
                       {{Ttest1 | safe}}
                      
             </tr>
+            <br> </br>
+            <form action="{% url 'MachineLearningApi:display' %}"  >
+                <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> New Target values</button>
+                </form>
         <!-- {{test}}
         {% for ad in test %} -->
         
     <!-- {% endfor %} -->
 
-    <form action="{% url 'MachineLearningApi:display' %}">
+    <!-- <form action="{% url 'MachineLearningApi:display' %}">
         <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> display</button>
-        </form>
+        </form> -->
     </tbody>
 </table>
 {% endblock %}

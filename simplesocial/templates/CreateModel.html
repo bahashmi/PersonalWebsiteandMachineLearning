@@ -5,7 +5,7 @@
 {% block content %}
 <head>
 </head>
-<h1> Lets create our first model</h1>
+<!-- <h1> Lets create our first model</h1> -->
 
 
 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -16,7 +16,8 @@
 
     </thead>
     <tbody>
-            <tr>
+            <tr> <h2 style="color:rgb(25, 28, 236);font-family:verdana;"> <b>Model </b>  </h2>
+              <p>After partitioning the data into training and testing data, I will build a model. I have defined a train function which  takes in two arguements X and T. X is a one - dimensional matrix containg the training data while T is  a two-dimensional matrix containing the target values. The train method standardizes the input data X by calculating its mean and standard deviation. The mean and standard deviations are used to calculate the weights for the data and the function in the end returns a dictionary with the means, standard deviation and weights associated the data. The means, stds and weights are defined below.</p>
                      <table>
                             <tr>
                               {% for key in model.keys %}
@@ -33,13 +34,20 @@
                               {% endfor %}
                             </tr>
                           </table>
-                          Predicted model {{predictedmodel | safe}} 
-                          Error {{error}}
+                          <h2 style="color:rgb(25, 28, 236);font-family:verdana;"> <b>Predicted Model </b>  </h2>
+                          <p>When we have build a model, we try to make some predictions. I have defined a "Use" function that takes in two parameters model and X. The model parameter is returned by the train function while X is a two - dimensional matrix containg the training data. In this method we will be also standardizing the input X by using the already calculated means and Standard deviations as in the train function. The function returns a set of prediction values based on the input X</p>
+                          {{predictedmodel | safe}}
+                          <h2 style="color:rgb(25, 28, 236);font-family:verdana;"> <b>Error </b>  </h2>
+                          <p>The error is calculated using the RMSE method. RMSE stands for root-mean-square error. It is used to measure  the difference between values  predicted by the  model(train function) and the target values. This function takes in the predict and T parameters. Predict correspnds to the values predicted while T corresponds to the target values.</p> 
+                          Error {{error}} 
                           {{html | safe}}
                          
                             
                      
             </tr>
+            <form action="{% url 'MachineLearningApi:userDetails' %}"  >
+              <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> User Details</button>
+              </form>
         <!-- {{test}}
         {% for ad in test %} -->
         

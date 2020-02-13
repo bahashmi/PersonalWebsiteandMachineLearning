@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
 
 urlpatterns = [
     path('', views.HomePage.as_view(), name="home"),
+    # path('userdetails/', views.userDetails),
+    # path('display/', views.userDetails),
     path('admin/', admin.site.urls),
     path('test/', views.TestPage.as_view(), name="test"),
     path('thanks/', views.ThanksPage.as_view(), name="thanks"),
@@ -28,7 +31,14 @@ urlpatterns = [
     path('groups/',include("groups.urls", namespace="groups")),
     path('MachineLearningApi/',include("MachineLearningApi.urls", namespace="MachineLearningApi")),
     path('MachineLearningApi/preprocess/', views.PreprocessPage.as_view(), name="preprocess"),
+    
     path('MachineLearningApi/preprocess/partitiondata/',views.partitiondata.as_view(),name='partitiondata'),
     path('MachineLearningApi/preprocess/partitiondata/CreateModel/',views.CreateModel.as_view(),name='CreateModel'),
     
+    
 ]
+
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+#     urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

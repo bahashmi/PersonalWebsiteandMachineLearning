@@ -2,6 +2,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 
+
 class TestPage(TemplateView):
     template_name = 'test.html'
 
@@ -22,6 +23,11 @@ class display(TemplateView):
 
 class HomePage(TemplateView):
     template_name = 'index.html'
+
+class details(TemplateView):
+    template_name = 'details.html'
+class create(TemplateView):
+    template_name = 'create.html'
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
