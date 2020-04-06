@@ -29,6 +29,12 @@ class details(TemplateView):
 class create(TemplateView):
     template_name = 'create.html'
 
+class datacleaning(TemplateView):
+    template_name = 'datacleaning.html'
+
+class datacleaned(TemplateView):
+    template_name = "datacleaned.html"
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse("test"))

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from MachineLearningApi.models import CSVFile,UserDetails
+from MachineLearningApi.models import CSVFile,UserDetails,dataCleaningModels
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import EventsForm,UserModelForm
@@ -22,8 +22,62 @@ import os
 
 
 
-from .forms import UserModelForm
+from .forms import UserModelForm,dataCleaningForm
 from .forms import NameForm
+def Datacleaned(request):
+	# print("herllohfkjnfcgy")
+	# path="media/"  
+	# img_list =os.listdir(path)
+	# print("list of files inside 15jan ",img_list)
+	
+	# nfry= CSVFile.objects.all()
+
+	# fileindex = img_list.index(nfry[len(nfry)-1].name)
+	# print("img_list[fileindex]: ",img_list[fileindex])
+	# filepath =  path + img_list[fileindex] 
+	
+	# dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
+	# print("dfcolumns : ", dfcolumnvalues)
+
+	# DBcolums = UserDetails.objects.all()
+	# print("DBcolumns ",DBcolums)
+
+	return render(request, 'datacleaned.html')
+
+def Datacleaning(request):
+	if request.method == 'POST':
+		form = dataCleaningForm(request.POST)
+		if form.is_valid():
+			u = form.save()
+			users = dataCleaningModels.objects.all()
+			print("Users: ", users.values)
+			return render(request, 'datacleaned.html',{'users': users})
+
+            # u = form.save(commit=False)
+            # u.title = "New Name"
+            # context = {
+            # 'u' : u
+            # }
+            #
+            # template = loader.get_template('display.html')
+            #
+            # return HttpResponse(template.render(context, request))
+	else:
+		form_class = dataCleaningForm
+	
+	return render(request, 'datacleaning.html', {
+        'form': form_class,
+    })
+
+# def Datacleaning(request):
+# 	print("hello we are about to start data cleaning")
+# 	path="media/"  
+# 	img_list =os.listdir(path)
+# 	print("list of files inside 12 march ",img_list)
+
+# 	nfry= CSVFile.objects.all()
+# 	print("nfry[len(nfry)-1].name, ", nfry[len(nfry)-1].name)
+# 	return render(request, 'datacleaning.html',{'filename': nfry[len(nfry)-1].name})
 
 def userDetails(request):
 	if request.method == 'POST':
@@ -180,7 +234,7 @@ def CreateModel(request):
 	error = rmse(dfpredicted,targetvalues)
 	print("error ", error )
 
-
+ 
 	
 
 	x= [1,2,2,4,5]
@@ -241,12 +295,31 @@ def PreprocessPage(request):
 	plot.circle([1,2,3,4],flatlist)
 	# show(plot)
 	html = file_html(plot, CDN, "my plot")
+	if request.method == 'POST':
+		form = UserModelForm(request.POST)
+		if form.is_valid():
+			u = form.save()
+			users = UserDetails.objects.all()
+			print("Users: ", users.values)
+			return render(request, 'preprocess.html', {'loaded_data': data_html,'filedatahtml':filedf,'Xtrain':dfXtrain.to_html,'Ttrain':dfTtrain.to_html,'Xtest':dfXtest.to_html,'Ttest':dfTtest.to_html,'figure':html,'users': users}) 
+			# render(request, 'display.html',{'users': users})
+            # u = form.save(commit=False)
+            # u.title = "New Name"
+            # context = {
+            # 'u' : u
+            # }
+            #
+            # template = loader.get_template('display.html')
+            #
+            # return HttpResponse(template.render(context, request))
+	else:
+		form_class = UserModelForm
 
 
 	
 
 
-	return render(request, 'preprocess.html', {'loaded_data': data_html,'filedatahtml':filedf,'Xtrain':dfXtrain.to_html,'Ttrain':dfTtrain.to_html,'Xtest':dfXtest.to_html,'Ttest':dfTtest.to_html,'figure':html})
+	return render(request, 'preprocess.html', {'loaded_data': data_html,'filedatahtml':filedf,'Xtrain':dfXtrain.to_html,'Ttrain':dfTtrain.to_html,'Xtest':dfXtest.to_html,'Ttest':dfTtest.to_html,'figure':html,'form': form_class})
 	# return render(request,"preprocess.html")
 	# data_html = data.to_html()
 # 	context = {'loaded_data': data_html}
@@ -346,6 +419,8 @@ class DataImportFile(View):
         all_entries1 = CSVFile.objects.all()
         print("all enteries ",enteries)
         return HttpResponseRedirect(reverse("MachineLearningApi:PreprocessData"))
+
+	
 
 
 		

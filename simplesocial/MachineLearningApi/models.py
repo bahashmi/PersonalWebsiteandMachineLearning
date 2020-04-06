@@ -10,7 +10,11 @@ class UserDetails(models.Model):
     # def __str__(self):
     #     return self.title
 
+class dataCleaningModels(models.Model):
+    changeTypeCol = models.CharField(max_length=100)
+    changeColTypeTo = models.CharField(max_length=100)
 
+      
 
 
 class Document(models.Model):

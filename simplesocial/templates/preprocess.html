@@ -13,6 +13,15 @@
         </tr> -->
 
     </thead>
+    <!-- <form action="{% url 'MachineLearningApi:display' %}" method="post"> -->
+    <!-- <form action="{% url 'MachineLearningApi:partitiondata' %}" method="post">    
+        {% csrf_token %}
+        <table>
+        {{form.as_table}}
+    
+     </table>
+    <input type="submit" value="Submit" /> -->
+
     <tbody>
             <tr> <p>This data was collected by Luis Candanedo, at  University of Mons (UMONS). It is experimental data used to create regression models of appliances energy use in a low energy building.The  original number of samples in the data are 19735 and number of attributes are 29.The target is whatever the output of the input variables.We will chose the second attribute as our target values(lights).Features are individual independent variables that act as the input in your system. Prediction models use features to make predictions. The  other attributes displayed below will form the input data.</p>
                     {{loaded_data | safe}}

@@ -6,12 +6,17 @@ from django.utils import timezone
 
 from django import forms
 from django.forms import ModelForm
-from .models import UserDetails
+from .models import UserDetails,dataCleaningModels
 
 
 class UserModelForm(forms.ModelForm):
     class Meta:
         model = UserDetails
+        fields = "__all__" 
+
+class dataCleaningForm(forms.ModelForm):
+    class Meta:
+        model = dataCleaningModels
         fields = "__all__" 
 
 class EventsForm(forms.Form):
