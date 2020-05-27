@@ -25,22 +25,22 @@ import os
 from .forms import UserModelForm,dataCleaningForm
 from .forms import NameForm
 def Datacleaned(request):
-	# print("herllohfkjnfcgy")
-	# path="media/"  
-	# img_list =os.listdir(path)
-	# print("list of files inside 15jan ",img_list)
-	
-	# nfry= CSVFile.objects.all()
+	print("herllohfkjnfcgy")
+	path="media/"  
+	img_list =os.listdir(path)
+	print("list of files inside 15jan ",img_list)
+	pyth
+	nfry= CSVFile.objects.all()
 
-	# fileindex = img_list.index(nfry[len(nfry)-1].name)
-	# print("img_list[fileindex]: ",img_list[fileindex])
-	# filepath =  path + img_list[fileindex] 
+	fileindex = img_list.index(nfry[len(nfry)-1].name)
+	print("img_list[fileindex]: ",img_list[fileindex])
+	filepath =  path + img_list[fileindex] 
 	
-	# dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
-	# print("dfcolumns : ", dfcolumnvalues)
+	dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
+	print("dfcolumns : ", dfcolumnvalues)
 
-	# DBcolums = UserDetails.objects.all()
-	# print("DBcolumns ",DBcolums)
+	DBcolums = UserDetails.objects.all()
+	print("DBcolumns ",DBcolums)
 
 	return render(request, 'datacleaned.html')
 
