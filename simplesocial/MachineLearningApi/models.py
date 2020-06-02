@@ -4,8 +4,8 @@ import pandas as pd
 from django.db import models
 class UserDetails(models.Model):
 
-    targetcols = models.CharField(max_length=100)
-    inputcols = models.CharField(max_length=100)
+    changeTypeCol = models.CharField(max_length=100)
+    changeColTypeTo = models.CharField(max_length=100)
 
     # def __str__(self):
     #     return self.title
@@ -13,6 +13,10 @@ class UserDetails(models.Model):
 class dataCleaningModels(models.Model):
     changeTypeCol = models.CharField(max_length=100)
     changeColTypeTo = models.CharField(max_length=100)
+
+class replaceNaNvaluesMoedels(models.Model):
+     colName = models.CharField(max_length=100)
+     replaceNanvaluesWith = models.IntegerField()
 
       
 

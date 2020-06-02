@@ -24,12 +24,12 @@ import os
 
 from .forms import UserModelForm,dataCleaningForm
 from .forms import NameForm
-def Datacleaned(request):
+def Datacleaned(request): 
 	print("herllohfkjnfcgy")
 	path="media/"  
 	img_list =os.listdir(path)
 	print("list of files inside 15jan ",img_list)
-	pyth
+	
 	nfry= CSVFile.objects.all()
 
 	fileindex = img_list.index(nfry[len(nfry)-1].name)
@@ -37,14 +37,40 @@ def Datacleaned(request):
 	filepath =  path + img_list[fileindex] 
 	
 	dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
-	print("dfcolumns : ", dfcolumnvalues)
+	# dfcolumnvalues = pd.read_csv("media/May27th.csv")
+	print("dfcolumns : ", dfcolumnvalues.columns.values)
+	print(dfcolumnvalues[['lights']].values)
 
-	DBcolums = UserDetails.objects.all()
-	print("DBcolumns ",DBcolums)
+	DBcolums = dataCleaningModels.objects.all()
+	print("DBcolumns ",DBcolums[len(DBcolums) -1].changeTypeCol)
+	print(" dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
 
 	return render(request, 'datacleaned.html')
 
 def Datacleaning(request):
+	form_class = dataCleaningForm
+	# if request is not post, initialize an empty form
+	form = form_class(request.POST)
+
+	path="media/"  
+	img_list =os.listdir(path)
+	nfry= CSVFile.objects.all()
+
+	fileindex = img_list.index(nfry[len(nfry)-1].name)
+	filepath =  path + img_list[fileindex] 
+	DBcolums = UserDetails.objects.all()
+	dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
+	# dfcolumnvalues = pd.read_csv("media/May27th.csv")
+	print("dfcolumns : ", dfcolumnvalues.columns.values)
+	print(dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
+
+	
+	print("UserDetailsDBcolumns ",DBcolums[len(DBcolums) -1].changeTypeCol)
+	print("UserDetailsDBcolumns.values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
+	df = dfcolumnvalues.astype({DBcolums[len(DBcolums) -1].changeTypeCol: DBcolums[len(DBcolums) -1].changeColTypeTo})
+	print("df after changing col type to float: ", df)
+
+
 	if request.method == 'POST':
 		form = dataCleaningForm(request.POST)
 		if form.is_valid():
@@ -66,7 +92,7 @@ def Datacleaning(request):
 		form_class = dataCleaningForm
 	
 	return render(request, 'datacleaning.html', {
-        'form': form_class,
+        'form': form_class,'df':df.to_html
     })
 
 # def Datacleaning(request):
@@ -319,7 +345,7 @@ def PreprocessPage(request):
 	
 
 
-	return render(request, 'preprocess.html', {'loaded_data': data_html,'filedatahtml':filedf,'Xtrain':dfXtrain.to_html,'Ttrain':dfTtrain.to_html,'Xtest':dfXtest.to_html,'Ttest':dfTtest.to_html,'figure':html,'form': form_class})
+	return render(request, 'preprocess.html', {'loaded_data': data_html,'filedatahtml':filedf,'Xtrain':dfXtrain.to_html,'Ttrain':dfTtrain.to_html,'Xtest':dfXtest.to_html,'Ttest':dfTtest.to_html,'figure':html})
 	# return render(request,"preprocess.html")
 	# data_html = data.to_html()
 # 	context = {'loaded_data': data_html}

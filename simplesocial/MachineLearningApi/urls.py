@@ -18,7 +18,6 @@ path('MachineLearningApi/preprocess/partitiondata/CreateModel/display/', views.u
 path('MachineLearningApi/preprocess/partitiondata/CreateModel/display/userdetails/', views.userDetails,name='display'),
 path('MachineLearningApi/preprocess/partitiondata/CreateModel/display/userdetails/datacleaning', views.Datacleaning,name='datacleaning'),
 path('MachineLearningApi/preprocess/partitiondata/CreateModel/display/userdetails/datacleaning/datacleaned', views.Datacleaned,name='datacleaned')
-
 ]
 
 

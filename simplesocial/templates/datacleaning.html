@@ -25,7 +25,9 @@
     <form action="{% url 'MachineLearningApi:datacleaned' %}" method="POST">
        {% csrf_token %}
        <table>
+        {{df}}
         {{form.as_table}}
+
     
      </table>
         <tr>

@@ -22,13 +22,13 @@
 {% block content %}
 <h1> Welcome to Machine Learning Api</h1>
 
-    <form action="{% url 'MachineLearningApi:preprocess' %}" method="POST" class="post-form">
+    <form action="{% url 'MachineLearningApi:datacleaning' %}" method="POST" class="post-form">
        {% csrf_token %}
        <table>
         {% for item in users %}
         <tr>
-            <td><b>Title:</b>{{ item.targetcols }}</td>
-            <td><b>Gender:</b> {{ item.inputcols |default:"NA" }}</td>
+            <td><b>changeColTypeTo:</b>{{ item.changeColTypeTo }}</td>
+            <td><b>changeCol:</b> {{ item.changeTypeCol |default:"NA" }}</td>
             
         </tr>
         <tr>
@@ -37,8 +37,8 @@
         {% endfor %}
     </table>
      <!-- <button type="submit" class="save btn btn-default">Save</button>  -->
-     <form action="{% url 'MachineLearningApi:preprocess' %}"  >
-        <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> User Details</button>
+     <form action="{% url 'MachineLearningApi:datacleaning' %}"  >
+        <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Confirm</button>
         </form>
     </form>
 
