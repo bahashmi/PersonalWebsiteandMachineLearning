@@ -6,7 +6,7 @@ from django.utils import timezone
 
 from django import forms
 from django.forms import ModelForm
-from .models import UserDetails,dataCleaningModels
+from .models import UserDetails,dataCleaningModels,replaceNaNvaluesModels
 
 
 class UserModelForm(forms.ModelForm):
@@ -17,6 +17,11 @@ class UserModelForm(forms.ModelForm):
 class dataCleaningForm(forms.ModelForm):
     class Meta:
         model = dataCleaningModels
+        fields = "__all__" 
+
+class replaceNaNvaluesModelsForm(forms.ModelForm):
+    class Meta:
+        model = replaceNaNvaluesModels
         fields = "__all__" 
 
 class EventsForm(forms.Form):

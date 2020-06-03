@@ -3,7 +3,7 @@ from django.views.generic import View
 from MachineLearningApi.models import CSVFile,UserDetails,dataCleaningModels
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import EventsForm,UserModelForm
+from .forms import EventsForm,UserModelForm,replaceNaNvaluesModelsForm
 from django.core.files.storage import FileSystemStorage
 from django.views.generic import TemplateView
 import pandas as pd
@@ -48,7 +48,7 @@ def Datacleaned(request):
 	return render(request, 'datacleaned.html')
 
 def Datacleaning(request):
-	form_class = dataCleaningForm
+	form_class = replaceNaNvaluesModelsForm
 	# if request is not post, initialize an empty form
 	form = form_class(request.POST)
 
@@ -72,10 +72,10 @@ def Datacleaning(request):
 
 
 	if request.method == 'POST':
-		form = dataCleaningForm(request.POST)
+		form = replaceNaNvaluesModelsForm(request.POST)
 		if form.is_valid():
 			u = form.save()
-			users = dataCleaningModels.objects.all()
+			users = replaceNaNvaluesModels.objects.all()
 			print("Users: ", users.values)
 			return render(request, 'datacleaned.html',{'users': users})
 
@@ -89,7 +89,7 @@ def Datacleaning(request):
             #
             # return HttpResponse(template.render(context, request))
 	else:
-		form_class = dataCleaningForm
+		form_class = replaceNaNvaluesModelsForm
 	
 	return render(request, 'datacleaning.html', {
         'form': form_class,'df':df.to_html

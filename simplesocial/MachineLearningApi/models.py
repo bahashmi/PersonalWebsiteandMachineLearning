@@ -14,7 +14,7 @@ class dataCleaningModels(models.Model):
     changeTypeCol = models.CharField(max_length=100)
     changeColTypeTo = models.CharField(max_length=100)
 
-class replaceNaNvaluesMoedels(models.Model):
+class replaceNaNvaluesModels(models.Model):
      colName = models.CharField(max_length=100)
      replaceNanvaluesWith = models.IntegerField()
 
