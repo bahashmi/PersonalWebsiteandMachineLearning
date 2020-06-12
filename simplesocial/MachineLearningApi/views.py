@@ -44,6 +44,10 @@ def Datacleaned(request):
 	DBcolums = dataCleaningModels.objects.all()
 	print("DBcolumns ",DBcolums[len(DBcolums) -1].changeTypeCol)
 	print(" dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
+	
+	df = request.session['df']
+	print("request.session['df']")
+	print(df)
 
 	return render(request, 'datacleaned.html')
 
@@ -69,6 +73,8 @@ def Datacleaning(request):
 	print("UserDetailsDBcolumns.values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
 	df = dfcolumnvalues.astype({DBcolums[len(DBcolums) -1].changeTypeCol: DBcolums[len(DBcolums) -1].changeColTypeTo})
 	print("df after changing col type to float: ", df)
+	df = df.to_json()
+	request.session['df'] = df
 
 
 	if request.method == 'POST':
@@ -92,7 +98,7 @@ def Datacleaning(request):
 		form_class = replaceNaNvaluesModelsForm
 	
 	return render(request, 'datacleaning.html', {
-        'form': form_class,'df':df.to_html
+        'form': form_class,'df':df
     })
 
 # def Datacleaning(request):

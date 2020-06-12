@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'groups.apps.GroupsConfig',
     'posts.apps.PostsConfig',
-    'MachineLearningApi.apps.MachinelearningapiConfig'
+    'MachineLearningApi.apps.MachinelearningapiConfig',
     
 ]
 
