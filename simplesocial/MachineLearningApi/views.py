@@ -59,6 +59,7 @@ def Datacleaning(request):
 	path="media/"  
 	img_list =os.listdir(path)
 	nfry= CSVFile.objects.all()
+	
 
 	fileindex = img_list.index(nfry[len(nfry)-1].name)
 	filepath =  path + img_list[fileindex] 
