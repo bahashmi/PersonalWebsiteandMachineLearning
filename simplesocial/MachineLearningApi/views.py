@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
-from MachineLearningApi.models import CSVFile,UserDetails,dataCleaningModels
+from MachineLearningApi.models import CSVFile,UserDetails,dataCleaningModels,replaceNaNvaluesModels
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import EventsForm,UserModelForm,replaceNaNvaluesModelsForm
@@ -28,7 +28,7 @@ def Datacleaned(request):
 	print("herllohfkjnfcgy")
 	path="media/"  
 	img_list =os.listdir(path)
-	print("list of files inside 15jan ",img_list)
+	print("list of files inside 16 june 2020 ",img_list)
 	
 	nfry= CSVFile.objects.all()
 
@@ -38,12 +38,12 @@ def Datacleaned(request):
 	
 	dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
 	# dfcolumnvalues = pd.read_csv("media/May27th.csv")
-	print("dfcolumns : ", dfcolumnvalues.columns.values)
-	print(dfcolumnvalues[['lights']].values)
+	# print("dfcolumns : ", dfcolumnvalues.columns.values)
+	# print(dfcolumnvalues[['lights']].values)
 
-	DBcolums = dataCleaningModels.objects.all()
-	print("DBcolumns ",DBcolums[len(DBcolums) -1].changeTypeCol)
-	print(" dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
+	DBcolums = replaceNaNvaluesModels.objects.all()
+	print("replaceNaNvaluesModels ",DBcolums)
+	# print(" dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
 	
 	df = request.session['df']
 	print("request.session['df']")
@@ -52,28 +52,28 @@ def Datacleaned(request):
 	return render(request, 'datacleaned.html')
 
 def Datacleaning(request):
-	form_class = replaceNaNvaluesModelsForm
-	# if request is not post, initialize an empty form
-	form = form_class(request.POST)
+	# form_class = replaceNaNvaluesModelsForm
+	# # if request is not post, initialize an empty form
+	# form = form_class(request.POST)
 
 	path="media/"  
 	img_list =os.listdir(path)
 	nfry= CSVFile.objects.all()
-	
+	print("request ", request)
 
 	fileindex = img_list.index(nfry[len(nfry)-1].name)
 	filepath =  path + img_list[fileindex] 
 	DBcolums = UserDetails.objects.all()
 	dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
 	# dfcolumnvalues = pd.read_csv("media/May27th.csv")
-	print("dfcolumns : ", dfcolumnvalues.columns.values)
-	print(dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
+	# print("dfcolumns : ", dfcolumnvalues.columns.values)
+	# print(dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
 
 	
-	print("UserDetailsDBcolumns ",DBcolums[len(DBcolums) -1].changeTypeCol)
-	print("UserDetailsDBcolumns.values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
+	# print("UserDetailsDBcolumns ",DBcolums[len(DBcolums) -1].changeTypeCol)
+	# print("UserDetailsDBcolumns.values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
 	df = dfcolumnvalues.astype({DBcolums[len(DBcolums) -1].changeTypeCol: DBcolums[len(DBcolums) -1].changeColTypeTo})
-	print("df after changing col type to float: ", df)
+	# print("df after changing col type to float: ", df)
 	df = df.to_json()
 	request.session['df'] = df
 
@@ -83,19 +83,10 @@ def Datacleaning(request):
 		if form.is_valid():
 			u = form.save()
 			users = replaceNaNvaluesModels.objects.all()
-			print("Users: ", users.values)
+			print("replaceNaNvaluesModelsUsers: ", users.values)
 			return render(request, 'datacleaned.html',{'users': users})
 
-            # u = form.save(commit=False)
-            # u.title = "New Name"
-            # context = {
-            # 'u' : u
-            # }
-            #
-            # template = loader.get_template('display.html')
-            #
-            # return HttpResponse(template.render(context, request))
-	else:
+            
 		form_class = replaceNaNvaluesModelsForm
 	
 	return render(request, 'datacleaning.html', {

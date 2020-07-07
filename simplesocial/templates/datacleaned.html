@@ -28,8 +28,8 @@
   <table>
     {% for item in users %}
     <tr>
-        <td><b>changeTypeCol:</b>{{ item.colName  }}<b> replaceNanvaluesWith:</b>{{ item.replaceNanvaluesWitho }}<b></td>
-        <!-- <td><b>Gender:</b> {{ item.inputcols |default:"NA" }}</td> -->
+        <td><b>changeTypeCol:</b>{{ item.colName  }}<b> replacevaluesWith:</b>{{ item.replacevaluesWith }}<b></td>
+        <td><b>valueToBeReplaced:</b> {{ item.valueToBeReplaced |default:"NA" }}</td>
        
    </tr>
    <tr>
@@ -39,7 +39,7 @@
 </table>
 <!-- <button type="submit" class="save btn btn-default">Save</button>  -->
 <form action="{% url 'MachineLearningApi:preprocess' %}"  >
-   <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> User Details</button>
+   <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Confirm</button>
    </form>
 </form>
 
