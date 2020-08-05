@@ -20,10 +20,10 @@
 
 </head>
 {% block content %}
-<h1>  Data Cleaning results </h1>
+<h1>  Replace values results </h1>
 
 
-<form action="{% url 'MachineLearningApi:replaceValues' %}" method="POST" class="post-form">
+<!-- <form action="{% url 'MachineLearningApi:preprocess' %}" method="POST" class="post-form">
   {% csrf_token %}
   <table>
     {% for item in users %}
@@ -36,7 +36,7 @@
    <td colspan="2" class="divider"><hr/></td>
 </tr>
    {% endfor %}
-</table>
+</table> -->
 <!-- <button type="submit" class="save btn btn-default">Save</button>  -->
 <form action="{% url 'MachineLearningApi:preprocess' %}"  >
    <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Confirm</button>

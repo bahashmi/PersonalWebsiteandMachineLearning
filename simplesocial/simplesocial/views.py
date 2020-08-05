@@ -35,6 +35,9 @@ class datacleaning(TemplateView):
 class datacleaned(TemplateView):
     template_name = "datacleaned.html"
 
+class replaceValues(TemplateView):
+    template_name = "replaceValues.html"
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return HttpResponseRedirect(reverse("test"))
