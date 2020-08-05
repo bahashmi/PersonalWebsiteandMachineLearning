@@ -18,38 +18,38 @@ from collections import Iterable
 from django.contrib import messages
 from IPython.display import HTML
 import os
+from csv import reader
+import pandas as pd
  
 
 
 
 from .forms import UserModelForm,dataCleaningForm
 from .forms import NameForm
-def Datacleaned(request): 
+def replaceValues(request): 
 	print("herllohfkjnfcgy")
 	path="media/"  
 	img_list =os.listdir(path)
-	print("list of files inside 16 june 2020 ",img_list)
-	
-	nfry= CSVFile.objects.all()
-
-	fileindex = img_list.index(nfry[len(nfry)-1].name)
-	print("img_list[fileindex]: ",img_list[fileindex])
-	filepath =  path + img_list[fileindex] 
-	
-	dfcolumnvalues = pd.read_csv(filepath,encoding='utf-8')
-	# dfcolumnvalues = pd.read_csv("media/May27th.csv")
-	# print("dfcolumns : ", dfcolumnvalues.columns.values)
-	# print(dfcolumnvalues[['lights']].values)
-
-	DBcolums = replaceNaNvaluesModels.objects.all()
-	print("replaceNaNvaluesModels ",DBcolums)
-	# print(" dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values ",dfcolumnvalues[[DBcolums[len(DBcolums) -1].changeTypeCol]].values)
-	
 	df = request.session['df']
-	print("request.session['df']")
-	print(df)
+	print("df ", df)
+	DBcolums = replaceNaNvaluesModels.objects.all()
+	form_class = replaceNaNvaluesModelsForm
+	print("df: ", df)
+	print("dfcolumns : ", DBcolums.values)
+	print("DBcolums[len(DBcolums) -1].changeColTypeTo ", DBcolums[len(DBcolums) -1].colName)
+	
+	print(type(df))
+	df1 = pd.read_json(df)
+	print(df1)
+	print("colName values: ",df1[[DBcolums[len(DBcolums) -1].colName]].values)
+	print("replacevaluesWith values: ",DBcolums[len(DBcolums) -1].replacevaluesWith)
+	print("valueToBeReplaced values: ",DBcolums[len(DBcolums) -1].valueToBeReplaced)
+	# print("replaceNaNvaluesModels2.values ",df[[DBcolums[len(DBcolums) -1]]].values)
+	return render(request, 'replaceValues.html', {
+        'form': form_class,'df':df
+    })
 
-	return render(request, 'datacleaned.html')
+	# return render(request, 'replaceValues.html')
 
 def Datacleaning(request):
 	# form_class = replaceNaNvaluesModelsForm
