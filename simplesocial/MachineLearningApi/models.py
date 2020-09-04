@@ -18,6 +18,7 @@ class replaceNaNvaluesModels(models.Model):
      colName = models.CharField(max_length=100)
      replacevaluesWith = models.IntegerField()
      valueToBeReplaced = models.IntegerField(max_length=100,default=0)
+     Random_Shuffle = models.BooleanField(default=True)
 
       
 
