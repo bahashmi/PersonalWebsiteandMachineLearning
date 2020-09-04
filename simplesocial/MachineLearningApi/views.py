@@ -44,9 +44,12 @@ def replaceValues(request):
 	print("colName values: ",df1[[DBcolums[len(DBcolums) -1].colName]].values)
 	print("replacevaluesWith values: ",DBcolums[len(DBcolums) -1].replacevaluesWith)
 	print("valueToBeReplaced values: ",DBcolums[len(DBcolums) -1].valueToBeReplaced)
-	# print("replaceNaNvaluesModels2.values ",df[[DBcolums[len(DBcolums) -1]]].values)
+	df1=df1.replace(DBcolums[len(DBcolums) -1].valueToBeReplaced,DBcolums[len(DBcolums) -1].replacevaluesWith)
+	print("replaced value results ",df1)
+	print("type of df1 ", type(df1))
+
 	return render(request, 'replaceValues.html', {
-        'form': form_class,'df':df
+        'form': form_class,'df':df1
     })
 
 	# return render(request, 'replaceValues.html')

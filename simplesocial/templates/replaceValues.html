@@ -23,21 +23,12 @@
 <h1>  Replace values results </h1>
 
 
-<!-- <form action="{% url 'MachineLearningApi:preprocess' %}" method="POST" class="post-form">
+<form action="{% url 'MachineLearningApi:preprocess' %}" method="POST" class="post-form">
   {% csrf_token %}
   <table>
-    {% for item in users %}
-    <tr>
-        <td><b>changeTypeCol:</b>{{ item.colName  }}<b> replacevaluesWith:</b>{{ item.replacevaluesWith }}<b></td>
-        <td><b>valueToBeReplaced:</b> {{ item.valueToBeReplaced |default:"NA" }}</td>
-       
-   </tr>
-   <tr>
-   <td colspan="2" class="divider"><hr/></td>
-</tr>
-   {% endfor %}
-</table> -->
-<!-- <button type="submit" class="save btn btn-default">Save</button>  -->
+   {{df}}
+</table>
+<!-- <button type="submit" class="save btn btn-default">Save</button> 
 <form action="{% url 'MachineLearningApi:preprocess' %}"  >
    <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Confirm</button>
    </form>
