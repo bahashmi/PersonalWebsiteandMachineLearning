@@ -20,13 +20,17 @@
 
 </head>
 {% block content %}
-<h1>  Replace values results </h1>
+<h1 class="text-dark"><b> Replace values results </b> </h1>
 
 
 <form action="{% url 'MachineLearningApi:preprocess' %}" method="POST" class="post-form">
   {% csrf_token %}
   <table>
-   {{df}}
+   {{df | safe}}
+</table>
+<h2>Description of dataFrame </h2>
+<table>
+   {{description | safe}}
 </table>
 <!-- <button type="submit" class="save btn btn-default">Save</button> 
 <form action="{% url 'MachineLearningApi:preprocess' %}"  >
