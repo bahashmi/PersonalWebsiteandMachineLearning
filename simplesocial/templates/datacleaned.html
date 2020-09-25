@@ -3,51 +3,36 @@
 <head>
   <meta charset="utf-8">
   <title>Badr Hashmi</title>
-
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
   integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
   <!-- Optional theme -->
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
-
   <!-- Alternative to Bootstrap 3 Glyphicons -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
   <link rel="stylesheet" href="{% static 'simplesocial/css/master.css'%}">
-
 </head>
+
 {% block content %}
-<h1>  Data Cleaning results </h1>
-
-
+<h1>Data Cleaning results </h1>
 <form action="{% url 'MachineLearningApi:replaceValues' %}" method="POST" class="post-form">
   {% csrf_token %}
   <table>
     {% for item in users %}
     <tr>
         <td><b>changeTypeCol:</b>{{ item.colName  }}<b> replacevaluesWith:</b>{{ item.replacevaluesWith }}<b></td>
-        <td><b>valueToBeReplaced:</b> {{ item.valueToBeReplaced |default:"NA" }}</td>
-       
+        <td><b>valueToBeReplaced:</b> {{ item.valueToBeReplaced |default:"NA" }}</td>   
    </tr>
    <tr>
    <td colspan="2" class="divider"><hr/></td>
 </tr>
    {% endfor %}
 </table>
-<!-- <button type="submit" class="save btn btn-default">Save</button>  -->
 <form action="{% url 'MachineLearningApi:preprocess' %}"  >
    <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Confirm</button>
    </form>
 </form>
-
-
-
-<!-- <form action="{% url 'MachineLearningApi:preprocess' %}">
-   <button class="btn btn-primary" type='submit'> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"> Preprocess</button>
-   </form> -->
 {% endblock %}
 
 

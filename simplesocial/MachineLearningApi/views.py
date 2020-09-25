@@ -20,10 +20,6 @@ from IPython.display import HTML
 import os
 from csv import reader
 import pandas as pd
- 
-
-
-
 from .forms import UserModelForm,dataCleaningForm
 from .forms import NameForm
 def replaceValues(request): 
@@ -40,7 +36,10 @@ def replaceValues(request):
 	
 	print(type(df))
 	df1 = pd.read_json(df)
-	print(df1)
+	
+	print(df1.describe(include='all'))
+	df1_description = df1.describe(include='all')
+	df1_description_html = df1_description.to_html(classes=["table-bordered", "table-striped", "table-hover","table-dark"])
 	print("colName values: ",df1[[DBcolums[len(DBcolums) -1].colName]].values)
 	print("replacevaluesWith values: ",DBcolums[len(DBcolums) -1].replacevaluesWith)
 	print("valueToBeReplaced values: ",DBcolums[len(DBcolums) -1].valueToBeReplaced)
@@ -48,8 +47,14 @@ def replaceValues(request):
 	print("replaced value results ",df1)
 	print("type of df1 ", type(df1))
 
+	random_split = DBcolums[len(DBcolums) -1].Random_Shuffle
+	print("random_split: ", random_split)
+
+
+
+	df1_html=df1.to_html(classes=["table-bordered", "table-striped", "table-hover","table-dark","table-success"])
 	return render(request, 'replaceValues.html', {
-        'form': form_class,'df':df1
+        'form': form_class,'df':df1_html,'description':df1_description_html
     })
 
 	# return render(request, 'replaceValues.html')
