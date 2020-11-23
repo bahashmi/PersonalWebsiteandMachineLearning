@@ -22,42 +22,30 @@ from csv import reader
 import pandas as pd
 from .forms import UserModelForm,dataCleaningForm
 from .forms import NameForm
+from sklearn.utils import shuffle
+
 def replaceValues(request): 
-	print("herllohfkjnfcgy")
 	path="media/"  
 	img_list =os.listdir(path)
 	df = request.session['df']
-	print("df ", df)
 	DBcolums = replaceNaNvaluesModels.objects.all()
 	form_class = replaceNaNvaluesModelsForm
-	print("df: ", df)
-	print("dfcolumns : ", DBcolums.values)
-	print("DBcolums[len(DBcolums) -1].changeColTypeTo ", DBcolums[len(DBcolums) -1].colName)
-	
-	print(type(df))
 	df1 = pd.read_json(df)
-	
-	print(df1.describe(include='all'))
 	df1_description = df1.describe(include='all')
 	df1_description_html = df1_description.to_html(classes=["table-bordered", "table-striped", "table-hover","table-dark"])
-	print("colName values: ",df1[[DBcolums[len(DBcolums) -1].colName]].values)
-	print("replacevaluesWith values: ",DBcolums[len(DBcolums) -1].replacevaluesWith)
-	print("valueToBeReplaced values: ",DBcolums[len(DBcolums) -1].valueToBeReplaced)
 	df1=df1.replace(DBcolums[len(DBcolums) -1].valueToBeReplaced,DBcolums[len(DBcolums) -1].replacevaluesWith)
-	print("replaced value results ",df1)
-	print("type of df1 ", type(df1))
+	random_split = str(DBcolums[len(DBcolums) -1].Random_Shuffle)
 
-	random_split = DBcolums[len(DBcolums) -1].Random_Shuffle
-	print("random_split: ", random_split)
+	if random_split:
+		df1 =shuffle(df1)
 
-
+	df1 = df1.drop([DBcolums[len(DBcolums) -1].DropcolName], axis=1)
 
 	df1_html=df1.to_html(classes=["table-bordered", "table-striped", "table-hover","table-dark","table-success"])
 	return render(request, 'replaceValues.html', {
         'form': form_class,'df':df1_html,'description':df1_description_html
     })
 
-	# return render(request, 'replaceValues.html')
 
 def Datacleaning(request):
 	# form_class = replaceNaNvaluesModelsForm
@@ -84,7 +72,7 @@ def Datacleaning(request):
 	# print("df after changing col type to float: ", df)
 	df = df.to_json()
 	request.session['df'] = df
-
+	# df = df.to_html(classes=["table-bordered", "table-striped", "table-hover","table-dark"])
 
 	if request.method == 'POST':
 		form = replaceNaNvaluesModelsForm(request.POST)
